@@ -1,0 +1,26 @@
+# Dummy CI
+
+stages:
+  - build
+  - notification
+
+local_job_build:
+  stage: build
+  script:
+    - cat requirements.txt
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}/requirements.txt
+    expire_in: 3 days
+
+local_notify:
+  stage: notification
+  script:
+    - echo ${ADMIN_ID}
+    - echo ${BOT_TOKEN}
+    - echo ${DB_DATABASE}
+    - echo ${DB_HOST}
+    - echo ${DB_PASSWORD}
+    - echo ${DB_USER}
+  needs:
+    - local_job_build
