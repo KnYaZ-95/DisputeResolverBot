@@ -1,0 +1,17 @@
+stages:
+  - build
+
+build-nad-push-job:
+  tags:
+    - "bots"
+  stage: build
+  image: docker:24.0.5
+  services:
+    - name: docker:24.0.5-dind
+      command:
+        - --insecure-registry=$HARBOR_URL:8080
+  script:
+    - docker build -t 192.168.0.16:8080/$HARBOR_PROJECT/rsp-dice-bot:0.25alpha .
+    - echo "$HARBOR_PASSWORD" | docker login -u "$HARBOR_USERNAME" --password-stdin $HARBOR_URL
+    - docker push $HARBOR_URL:8080/$HARBOR_PROJECT/rsp-dice-bot:0.25alpha
+                                      

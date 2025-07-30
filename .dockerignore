@@ -1,0 +1,10 @@
+.venv
+.env
+.env_example
+.gitignore
+.git
+.idea
+.gitlab-ci.yml
+LICENSE
+docker-compose.yaml
+uv.lock
